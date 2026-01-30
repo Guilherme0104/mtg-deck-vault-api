@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="DeckBuilder.Api/DeckBuilder.Api.csproj" />
+  <Project Path="DeckBuilder.Application/DeckBuilder.Application.csproj" />
+  <Project Path="DeckBuilder.Domain/DeckBuilder.Domain.csproj" />
+  <Project Path="DeckBuilder.Infrastructure/DeckBuilder.Infrastructure.csproj" />
+</Solution>
