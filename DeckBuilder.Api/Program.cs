@@ -1,9 +1,18 @@
 using DeckBuilder.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<DeckBuilder.Application.Validators.CreateDeckRequestValidator>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("A ConnectionString 'DefaultConnection' não foi encontrada no appsettings.json");

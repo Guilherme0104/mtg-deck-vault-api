@@ -9,8 +9,11 @@ namespace DeckBuilder.Domain.Entities
         public string Format { get; set; } = "Commander";
         public string CardList { get; set; } = "[]";
         public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
+        //chaves estrangeiras
         public Guid UserId { get; set; }
-        public List<Review> Reviews { get; set; } = new();
 
+        //propriedades de navegação
+        public virtual User User { get; set; } = null!;
+        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

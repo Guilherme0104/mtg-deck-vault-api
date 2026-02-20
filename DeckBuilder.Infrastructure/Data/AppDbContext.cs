@@ -15,20 +15,36 @@ namespace DeckBuilder.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configuração JSONB
             modelBuilder.Entity<Deck>()
                 .Property(d => d.CardList)
                 .HasColumnType("jsonb");
 
+            // Relacionamento Deck -> User
             modelBuilder.Entity<Deck>()
-                .HasOne<User>()
+                .HasOne(d => d.User)           
                 .WithMany(u => u.Decks)
-                .HasForeignKey(d => d.UserId);
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // Relacionamento Review -> Deck
             modelBuilder.Entity<Review>()
-                .HasOne<Deck>()
+                .HasOne(r => r.Deck)
                 .WithMany(d => d.Reviews)
-                .HasForeignKey(r => r.DeckId);
+                .HasForeignKey(r => r.DeckId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+
+            // Relacionamento Review -> User
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.User)
+                .WithMany() 
+                .HasForeignKey(r => r.UserId);
+
+            // Configuração da Propriedade Rating
+            modelBuilder.Entity<Review>()
+                    .Property(r => r.Rating)
+                    .IsRequired();
         }
 
 

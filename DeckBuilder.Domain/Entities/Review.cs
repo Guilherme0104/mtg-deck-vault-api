@@ -7,8 +7,13 @@ namespace DeckBuilder.Domain.Entities
         public int Rating { get; set; } // 1 a 5
         public string Comment { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
+        //chaves estrangeiras
         public int DeckId { get; set; }
         public Guid UserId { get; set; }
+
+
+        //propriedades de navegação
+        public virtual User User { get; set; } = null!;
+        public virtual Deck Deck { get; set; } = null!;
     }
 }
